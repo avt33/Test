@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">DCF Analysis</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,34 +21,25 @@
                 <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Databases</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Stage 2 (DCF Programs)
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{{ url_for('FCF.FCF') }}">Free Cash Flows (FCF)</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Weighted Average Cost of Capital (WACC)</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Terminal Value</a></li>
-                  <li><hr class="dropdown-divider"</li>
-                  <li><a class="dropdown-item" href="#">Discounted Cash Flows (DCF)</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Enterprise → Equity</a></li>
-                </ul>
+                <a class="nav-link" href="{{ url_for('FCF.FCF') }}">Free Cash Flows (FCF)</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" text-color="white">Stage 3</a>
+                <a class="nav-link" href="#">Weighted Average Cost of Capital (WACC)</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" >Abhi Vittalam & Tanay Munugala</a>
+                <a class="nav-link" href="#">Terminal Value</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Discounted Cash Flows (DCF)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Enterprise → Equity</a>
               </li>
             </ul>
           </div>
         </div>
       </nav>
+      <div class="navbar-separator"></div>
       {% block content %}
       {% endblock %}
 </body>
