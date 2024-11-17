@@ -46,12 +46,19 @@
         </div>
       </nav>
       <div class="navbar-separator"></div>
+
       <div>
         <form method="POST">
           <label for="ticker">Enter Stock Ticker:</label>
           <input type="text" id="ticker" name="ticker" required>
           <button type="submit">Submit</button>
         </form>
+
+        {% if error_message %}
+          <div style="color: red; background-color: #f8d7da; padding: 10px; margin-top: 10px; border: 1px solid #f5c6cb;">
+            {{ error_message }}
+          </div>
+        {% endif %}
 
         {% if results %}
           <h2>Five Year FCF Results:</h2>
