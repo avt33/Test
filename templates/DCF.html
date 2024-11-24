@@ -1,5 +1,37 @@
 {% extends "base.html" %}
 {% block title %}DCF Analysis{% endblock %}
 {% block content %}
+<div class="background-text">
+    <p>
+        The provided code performs a Discounted Cash Flow (DCF) analysis to determine a stock's intrinsic value. It calculates key financial metrics, such as historical revenue growth rate, future free cash flows (FCF), and weighted average cost of capital (WACC). The script projects future EBITDA and terminal value, discounts these cash flows to present value using WACC, and computes intrinsic value by adjusting enterprise value for cash and debt and dividing by outstanding shares. This analysis helps assess if a stock is overvalued or undervalued by comparing its intrinsic value to the market price.
+        <br>
+        <br>
+        DCF analysis is a core valuation method in finance, estimating future cash flows a company is expected to generate and discounting them to present value. This approach provides insight into a company's financial health, aiding investors in making informed decisions based on intrinsic value rather than market price fluctuations. The code utilizes the `yfinance` API for real-time financial data, ensuring accurate and up-to-date analysis.
+    </p>
+</div>
 
-{% endblock %}
+<div>
+    <form method="post" class="form-container">
+        <label for="ticker" class="form-label">Enter Stock Ticker:</label>
+        <input type="text" id="ticker" name="ticker" class="form-control" placeholder="E.G., DE" required>
+        <button class="submit-btn" onclick="this.closest('form').submit();">Calculate</button>
+    </form>
+
+    {% if results %}
+        {% set color_class= 'equal_val' %}
+        {% if results.current_price > results.intrinsic_value %}
+            {% set color_class = 'overval' %}
+        {% elif results.current_price < results.intrinsic_value %}
+            {% set color_class = 'underval' %}
+        {% endif %}
+        <h2 class="{{ color_class }}">Current Price: ${{ results.current_price }}</h2>
+        <h2 class="{{ color_class }}">Intrinsic Value: ${{ results.intrinsic_value }}</h2>
+    {% endif %}
+
+    {% if error_message %}
+    <div class="alert alert-danger mt-3">
+        {{ error_message }}
+    </div>
+    {% endif %}
+</div>   
+{% endblock %} 
