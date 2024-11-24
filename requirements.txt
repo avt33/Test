@@ -1,2 +1,4 @@
 Flask
 yfinance
+pandas
+numpy
