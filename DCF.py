@@ -160,14 +160,46 @@ def enter_to_eq(ticker):
 
     return shareprice
 
+def get_terminal_value_percentage(ticker):
+    terminal_value = get_terminal_value(ticker)
+    WACC = get_WACC(ticker)
+    PVTV = terminal_value / ((1 + WACC) ** 5)
+    enter_value = get_discounting(ticker)
+    terminal_value_percentage = (PVTV / enter_value) * 100
+
+    return terminal_value_percentage
+
 def get_stock_price_and_intrinsic_value(ticker):
     stock = yf.Ticker(ticker)
     stock_info = stock.info
+    stock_data = yf.Ticker(ticker).history(period="1y")
+    cash_flow = stock.cash_flow
+
+    high_prices = stock_data['High']
+    low_prices = stock_data['Low']
+    price_range = [high_prices.min(), low_prices.max()]
+
+    beta = stock_info.get('beta')
+
+    market_price = stock_info['currentPrice']
+    eps = stock_info['trailingEps']
+    pe_ratio = market_price / eps
+
+    multiple = get_multiple(ticker)
+
+    fcf = cash_flow.loc['Free Cash Flow'].iloc[0]
+
+    terminal_value = get_terminal_value(ticker)
+
+    WACC = get_WACC(ticker)
+
+    terminal_value_percentage = get_terminal_value_percentage(ticker)
 
     current_price = stock_info.get('currentPrice')
     intrinsic_value = enter_to_eq(ticker)
 
-    return current_price, intrinsic_value
+
+    return current_price, intrinsic_value, price_range, beta, pe_ratio, multiple, fcf, terminal_value, WACC, terminal_value_percentage
 
 
 @DCF_bp.route('/DCF', methods=['GET', 'POST'])
@@ -178,13 +210,21 @@ def DCF():
     if request.method == 'POST':
         ticker = request.form['ticker']
         try:
-            current_price, intrinsic_value = get_stock_price_and_intrinsic_value(ticker)
+            current_price, intrinsic_value, price_range, beta, pe_ratio, multiple, fcf, terminal_value, WACC, terminal_value_percentage = get_stock_price_and_intrinsic_value(ticker)
             if intrinsic_value < 0:
                 error_message = "Couldn't calculate properly"
             else:
                 results = {
                     'current_price': round(current_price, 2),
                     'intrinsic_value': round(intrinsic_value, 2),
+                    'price_range': [round(price_range[0], 2), round(current_price, 2)],
+                    'beta': round(beta, 2),
+                    'pe_ratio': round(pe_ratio, 2),
+                    'multiple': round(multiple, 2),
+                    'fcf': round((fcf / 1000000000),2),
+                    'terminal_value': round((terminal_value / 1000000000), 2),
+                    'WACC': round((WACC * 100), 2),
+                    'terminal_value_percentage': round(terminal_value_percentage, 2)
                 }
         except Exception as e:
             error_message = "Error: couldn't compute"
