@@ -26,6 +26,38 @@
         {% endif %}
         <h2 class="{{ color_class }}">Current Price: ${{ results.current_price }}</h2>
         <h2 class="{{ color_class }}">Intrinsic Value: ${{ results.intrinsic_value }}</h2>
+        
+        {% if results.price_range %}
+            <h2>Historical Range: ${{ results.price_range[0] }} → ${{ results.price_range[1] }}</h2>
+        {% endif %}
+
+        {% if results.beta %}
+            <h2>Beta: {{ results.beta }}</h2>
+        {% endif %}
+
+        {% if results.pe_ratio %}
+            <h2>PE Ratio: {{ results.pe_ratio }}</h2>
+        {% endif %}
+
+        {% if results.multiple %}
+            <h2>EV/EBITDA Multiple: {{ results.multiple }}x</h2>
+        {% endif %}
+
+        {% if results.fcf %}
+            <h2>FCF: ${{ results.fcf }}B </h2>
+        {% endif %}
+
+        {% if results.terminal_value %}
+            <h2>Terminal Value: ${{results.terminal_value}}B</h2>
+        {% endif %}
+
+        {% if results.WACC %}
+            <h2>WACC: ${{ results.WACC }}%</h2>
+        {% endif %}
+
+        {% if results.terminal_value_percentage %}
+            <h2>Terminal Value %: {{ results.terminal_value_percentage }}%</h2>
+        {% endif %}
     {% endif %}
 
     {% if error_message %}
