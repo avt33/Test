@@ -5,10 +5,6 @@ import numpy as np
 
 DCF_bp = Blueprint('DCF', __name__)
 
-import yfinance as yf
-import pandas as pd
-import numpy as np
-
 def calculate_growth_rate(values):
     growth_rates = []
     for i in range(1, len(values)):
@@ -169,6 +165,17 @@ def get_terminal_value_percentage(ticker):
 
     return terminal_value_percentage
 
+def get_eps(ticker):
+    stock = yf.Ticker(ticker)
+    income_statement = stock.financials
+    stock_info = stock.info
+
+    net_income = income_statement.loc['Net Income'].iloc[0]
+    outstanding_shares = stock_info.get('sharesOutstanding')
+
+    eps = net_income / outstanding_shares
+    return eps
+
 def get_stock_price_and_intrinsic_value(ticker):
     stock = yf.Ticker(ticker)
     stock_info = stock.info
@@ -180,6 +187,8 @@ def get_stock_price_and_intrinsic_value(ticker):
     price_range = [high_prices.min(), low_prices.max()]
 
     beta = stock_info.get('beta')
+
+    eps = get_eps(ticker)
 
     market_price = stock_info['currentPrice']
     eps = stock_info['trailingEps']
@@ -199,7 +208,7 @@ def get_stock_price_and_intrinsic_value(ticker):
     intrinsic_value = enter_to_eq(ticker)
 
 
-    return current_price, intrinsic_value, price_range, beta, pe_ratio, multiple, fcf, terminal_value, WACC, terminal_value_percentage
+    return current_price, intrinsic_value, price_range, beta, eps, pe_ratio, multiple, fcf, terminal_value, WACC, terminal_value_percentage
 
 
 @DCF_bp.route('/DCF', methods=['GET', 'POST'])
@@ -210,7 +219,7 @@ def DCF():
     if request.method == 'POST':
         ticker = request.form['ticker']
         try:
-            current_price, intrinsic_value, price_range, beta, pe_ratio, multiple, fcf, terminal_value, WACC, terminal_value_percentage = get_stock_price_and_intrinsic_value(ticker)
+            current_price, intrinsic_value, price_range, beta, eps, pe_ratio, multiple, fcf, terminal_value, WACC, terminal_value_percentage = get_stock_price_and_intrinsic_value(ticker)
             if intrinsic_value < 0:
                 error_message = "Couldn't calculate properly"
             else:
@@ -219,6 +228,7 @@ def DCF():
                     'intrinsic_value': round(intrinsic_value, 2),
                     'price_range': [round(price_range[0], 2), round(current_price, 2)],
                     'beta': round(beta, 2),
+                    'eps': round(eps, 2),
                     'pe_ratio': round(pe_ratio, 2),
                     'multiple': round(multiple, 2),
                     'fcf': round((fcf / 1000000000),2),
