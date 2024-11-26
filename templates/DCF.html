@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %}DCF Analysis{% endblock %}
 {% block content %}
+<div>
+    <p class="psa-text">
+        <center>THESE VALUES MIGHT NOT BE ACCURATE BUT THE TRENDS THEY SHOWCASES SHOULD BE</center>
+    <p>
+</div>
+
 <div class="background-text">
     <p>
         The provided code performs a Discounted Cash Flow (DCF) analysis to determine a stock's intrinsic value. It calculates key financial metrics, such as historical revenue growth rate, future free cash flows (FCF), and weighted average cost of capital (WACC). The script projects future EBITDA and terminal value, discounts these cash flows to present value using WACC, and computes intrinsic value by adjusting enterprise value for cash and debt and dividing by outstanding shares. This analysis helps assess if a stock is overvalued or undervalued by comparing its intrinsic value to the market price.
@@ -33,6 +39,10 @@
 
         {% if results.beta %}
             <h2>Beta: {{ results.beta }}</h2>
+        {% endif %}
+
+        {% if results.eps %}
+            <h2>EPS Ratio: {{ results.eps }}</h2>
         {% endif %}
 
         {% if results.pe_ratio %}
