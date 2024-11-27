@@ -11,7 +11,6 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/index.css">
-
 </head>
 
 <body>
@@ -21,27 +20,75 @@
     <div class="bg-custom border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">Navigation</div>
         <div class="list-group list-group-flush">
-            <a href="{{ url_for('home') }}" class="list-group-item list-group-item-action bg-custom">Top</a>
             <a href="{{ url_for('DCF.DCF') }}" class="list-group-item list-group-item-action bg-custom">DCF Analysis</a>
             <a href="#" class="list-group-item list-group-item-action bg-custom">Monte Carlo Simulation</a>
-            <a href="#" class="list-group-item list-group-item-action bg-custom">Creators</a>
+            <a href="#" class="list-group-item list-group-item-action bg-custom">Blog/Forum</a>
+            <a href="#" class="list-group-item list-group-item-action bg-custom">Contact Info</a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-
-        <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="menu-toggle">
-                <span class="navbar-toggler-icon"></span>
-        </nav>
-
-        <div class="container-fluid">
-            <h1 class="mt-4"><center>StockHawk</center></h1>
+        <div class="container-fluid"></div>
+            <div class="d-flex justify-content-between align-items-center">
+                <button class="btn btn-primary" id="menu-toggle">☰</button>
+                <img src="data:image/png;base64,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" alt="Logo">
+            </div>
+            
+            <h2 class="section-header">Welcome to StockHawk!</h2>
             <hr>
+
             <p>
                 <center>Press the button in the top left to get started</center>
+            </p>
+            <hr>
+            
+            <h3 class="section-header">Introduction</h3>
+            <p>
+                Welcome to <b>StockHawk</b> - a free resource for stock market enthusiants.
+                Created by two juniors at Argyle High School, Abhinav Vittalam & Tanay Munugala,
+                StockHawk is designed to provide valuable insights & tools for better financial
+                decision-making. We're here to make the stock market accessible & understandable for everyone.
+            </p>
+            <hr>
+
+            <h3 class="section-header">Our Purpose</h3>
+            <p>
+                We want to provide straighforward, useful information about the stock market.
+                We want to help you make informed financial decisions with easy-to-understand analysis and tools.
+                We made the website to learn how to analyze & invest in stocks properly & just want to share
+                what we learned with others to make their journey easier than ours was. StockHawk is just a passion
+                project that combines Tanay & I's interest in programming & finance so bear with us if the website isn't easy to use
+                or you feel values you are given (particularly by the DCF Analysis [Beta]) aren't accurate.
+                In any case, we hope you find the website helpful & easy to use/understand.
+            </p>
+            <hr>
+
+            <h3 class="section-header">What We Offer</h3>
+            <ul>
+                <li>
+                    <b>Market Analysis →</b> Get the latest updates & insights into stock market trends.
+                </li>
+                <li>
+                    <b>Educational Content →</b> Blog posts & guides on various financial topics to boost your knowledge.
+                </li>
+                <li>
+                    <b>Tools & Resources →</b> Access financial calculators & simulators to help with your investments.
+                </li>
+                <li>
+                    <b>Interactive Blog →</b> Tanay will keep you updated with regular posts about market activities as often as he can.
+                </li>
+            </ul>
+            <hr>
+
+            <h3 class="section-header">Join Us</h3>
+            <p>
+                Explore StockHawk & make the most of the free resources we offer.
+                We're a work in progress & appreciate any feedback or suggestions you have.
+                Together, we can create a positive space to introduce people into investing in the stock market, without having to deal with anything shady.
+                <br>
+                Thank you for visiting StockHawk. We hope you find it helpful & enjoyable!
             </p>
             <hr>
         </div>
@@ -54,15 +101,12 @@
 <!-- Bootstrap core JavaScript -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-<!-- Menu Toggle Script -->
 <script>
-    $("#menu-toggle").click(function (e) {
+    $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
 </script>
-
 </body>
 
 </html>
