@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Monte Carlo Simulation{% endblock %}
+{% block nav_item1 %}Monte Carlo Simulation{% endblock %}
+{% block nav_item2 %}Periodic Daily Return{% endblock %}
+{% block nav_item3 %}Average Daily Return{% endblock %}
+{% block nav_item4 %}Random Value{% endblock %}
+{% block nav_item5 %}Future Days' Prices{% endblock %}
+
+{% block content %}
+<div>
+    <form method="post" class="form-container">
+        <label for="ticker" class="form-label">Enter Stock Ticker:</label>
+        <input type="text" id="ticker" name="ticker" class="form-control" placeholder="E.G., DE" required>
+        <button class="submit-btn" onclick="this.closest('form').submit();">Calculate</button>
+    </form>
+</div>
+
+{% if plot_data %}
+<div style="text-align: center;">
+    <img src="data:image/png;base64,{{ plot_data }}" alt="Monte Carlo Simulation Plot" style="width: 80%; max-width: 1000px; height: auto;">
+</div>
+{% endif %}
+{% endblock %}
