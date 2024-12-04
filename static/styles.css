@@ -138,3 +138,7 @@ body {
     text-align: center;
     color: green;
 }
+
+.container-fluid {
+    display: flex;
+}
