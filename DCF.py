@@ -226,13 +226,13 @@ def DCF():
                 results = {
                     'current_price': round(current_price, 2),
                     'intrinsic_value': round(intrinsic_value, 2),
-                    'price_range': [round(price_range[0], 2), round(current_price, 2)],
+                    'price_range': [round(price_range[0], 2), round(price_range[1], 2)],
                     'beta': round(beta, 2),
                     'eps': round(eps, 2),
                     'pe_ratio': round(pe_ratio, 2),
                     'multiple': round(multiple, 2),
-                    'fcf': round((fcf / 1000000000),2),
-                    'terminal_value': round((terminal_value / 1000000000), 2),
+                    'fcf': round((fcf / 1000000),2),
+                    'terminal_value': round((terminal_value / 1000000), 2),
                     'WACC': round((WACC * 100), 2),
                     'terminal_value_percentage': round(terminal_value_percentage, 2)
                 }

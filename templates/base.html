@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">DCF Analysis</a>
+          <a class="navbar-brand" href="#">{% block nav_item1 %}{% endblock %}</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -21,19 +21,19 @@
                 <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('DCF.DCF') }}">Free Cash Flows (FCF)</a>
+                <a class="nav-link" href="#">{% block nav_item2 %}{% endblock %}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Weighted Average Cost of Capital (WACC)</a>
+                <a class="nav-link" href="#">{% block nav_item3 %}{% endblock %}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Terminal Value</a>
+                <a class="nav-link" href="#">{% block nav_item4%}{% endblock %}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Discounted Cash Flows (DCF)</a>
+                <a class="nav-link" href="#">{% block nav_item5 %}{% endblock %}</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Enterprise → Equity</a>
+                <a class="nav-link" href="#">{% block nav_item6 %}{% endblock %}</a>
               </li>
             </ul>
           </div>
